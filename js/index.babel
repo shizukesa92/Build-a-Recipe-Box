@@ -1,0 +1,86 @@
+class Recipe extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		const recipe = this.props.recipe.ingredients;
+		const name = this.props.recipe.name;
+
+		const ingredients = (recipe) => {
+			for (var x = 0; x < recipe.length; x++) {
+				return (
+					<tr>
+							<td>recipe.x</td>
+						</tr>
+
+				);
+			}
+		}
+
+		return (
+			<div>
+			<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="collapse" data-target={name}>{name}</button>
+			<div id={name} class="collapse">
+				<h4>Ingredients</h4>
+				<table class="table">
+						{ingredients}	
+				</table>
+				<button type="button" class="btn btn-danger">Delete</button>
+				<button type="button" class="btn btn-default">Edit</button>
+
+			</div>
+		</div>
+		);
+
+	}
+}
+
+class RecipeList extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		const foodCount = this.props.recipes.length;
+
+		const list = (foodCount) => {
+			for (var x = 0; x < foodCount.length; x++) {
+				const food = foodCount.x;
+				return (
+					<Recipe recipe = {food}/>
+				)
+			}
+		}
+
+		return (
+			<div>{list}</div>
+		);
+
+	}
+}
+
+class Parent extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+
+		};
+	}
+
+	handleClick = () => {
+		recipes: []
+	}
+
+	render() {
+
+
+		return (
+			<RecipeList list = {this.state.recipes}/>
+		);
+
+	}
+
+}
+
+ReactDOM.render(<Parent />, document.getElementById("recipeWell"))
