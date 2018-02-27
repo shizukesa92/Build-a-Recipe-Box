@@ -1,30 +1,27 @@
 class Recipe extends React.Component {
-	constructor(props) {
-		super(props);
+
+	componentWillMount() {
+		console.log("mounted two");
 	}
-
 	render() {
-		const recipe = this.props.recipe.ingredients;
-		const name = this.props.recipe.name;
+		const name = this.props.name;
 
-		const ingredients = (recipe) => {
-			for (var x = 0; x < recipe.length; x++) {
-				return (
-					<tr>
-							<td>recipe.x</td>
-						</tr>
+		const recipe = this.props.ingredients.map(ingredient => {
+			return (<tr>
+							<td>ingredient</td>
+						</tr>);
+		});
 
-				);
-			}
-		}
+
+
 
 		return (
 			<div>
-			<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="collapse" data-target={name}>{name}</button>
+			<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="collapse" data-target={"#" + name}>{name}</button>
 			<div id={name} class="collapse">
 				<h4>Ingredients</h4>
 				<table class="table">
-						{ingredients}	
+						{recipe}	
 				</table>
 				<button type="button" class="btn btn-danger">Delete</button>
 				<button type="button" class="btn btn-default">Edit</button>
@@ -36,22 +33,19 @@ class Recipe extends React.Component {
 	}
 }
 
+
 class RecipeList extends React.Component {
-	constructor(props) {
-		super(props);
+	componentWillMount() {
+		console.log(this.props.list);
 	}
-
 	render() {
-		const foodCount = this.props.recipes.length;
 
-		const list = (foodCount) => {
-			for (var x = 0; x < foodCount.length; x++) {
-				const food = foodCount.x;
-				return (
-					<Recipe recipe = {food}/>
-				)
+		const list = this.props.list.map(ingredients => {
+				return (<Recipe name = {ingredients.name} ingredients = {ingredients.ingredients} />);
+				console.log("ingredients");
 			}
-		}
+
+		);
 
 		return (
 			<div>{list}</div>
@@ -64,12 +58,16 @@ class Parent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
+			recipes: [{
+					name: "Pumpkin Pie",
+					ingredients: ["Pumpkin Puree", "Sweetened Condensed Milk", "Eggs", "Pumpkin Pie Spice", "Pie Crust"]
+				},
+				{
+					title: "Spaghetti",
+					ingredients: ["Noodles", "Tomato Sauce", "(Optional) Meatballs"]
+				}
+			]
 		};
-	}
-
-	handleClick = () => {
-		recipes: []
 	}
 
 	render() {
