@@ -1,3 +1,14 @@
+class Submit extends React.Component {
+	render() {
+
+		return (
+			<input type="submit" class="btn btn-info" value="Submit" />
+		);
+	};
+
+
+}
+
 class Recipe extends React.Component {
 	render() {
 		const name = this.props.name;
@@ -96,5 +107,8 @@ class Parent extends React.Component {
 const generate = () => {
 	ReactDOM.render(<Parent />, document.getElementById("recipeWell"));
 }
+
+ReactDOM.render(<Submit />, document.getElementById("submission"));
+
 
 generate();
