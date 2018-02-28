@@ -1,8 +1,4 @@
 class Recipe extends React.Component {
-
-	componentWillMount() {
-		console.log("mounted two");
-	}
 	render() {
 		const name = this.props.name;
 		const id = this.props.index;
@@ -38,14 +34,10 @@ class Recipe extends React.Component {
 
 
 class RecipeList extends React.Component {
-	componentWillMount() {
-		console.log(this.props.list);
-	}
 	render() {
 
 		const list = this.props.list.map((ingredients, index) => {
 				return (<Recipe name = {ingredients.name} ingredients = {ingredients.ingredients} index = {index} />);
-				console.log("ingredients");
 			}
 
 		);
@@ -73,8 +65,19 @@ class Parent extends React.Component {
 		};
 	}
 
-	render() {
+	handleClick = () => {
+		const recipe = {
+			name: document.getElementById("title").value,
+			ingredients: document.getElementById("ingredients").value.split(",")
+		};
 
+		this.setState({
+				recipes: [...recipes, recipe]
+			}
+
+		)
+	}
+	render() {
 
 		return (
 			<div className = "panel-group">
