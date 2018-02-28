@@ -8,21 +8,23 @@ var recipes = [{
 	}
 ];
 
-const update = () => {
-	const recipe = {
-		name: document.getElementById("title").value,
-		ingredients: document.getElementById("ingredients").value.split(",")
-	};
-	recipes = [...recipes, recipe];
-
-}
 
 
 class Submit extends React.Component {
 	render() {
 
+		const updating = () => {
+			const recipe = {
+				name: document.getElementById("title").value,
+				ingredients: document.getElementById("ingredients").value.split(",")
+			};
+			recipes = [...recipes, recipe];
+			this.props.update(recipes);
+			console.log(recipes);
+
+		};
 		return (
-			<input type="submit" class="btn btn-info" value="Submit" onClick = {update} />
+			<input type="submit" class="btn btn-info" value="Submit" onClick = {updating} />
 		);
 	};
 
@@ -84,24 +86,20 @@ class Parent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recipes: recipes
+			recipes: this.props.recipes
 		};
 	}
 
-	handleClick = () => {
-
+	update = (recipe) => {
 		this.setState({
-				recipes: [...recipes, recipe]
-			}
-
-		);
-		console.log(recipe);
-		console.log(this.state.recipes);
-		generate();
-		this.close();
+			recipes: recipe
+		})
 	}
-	render() {
 
+	render() {
+		ReactDOM.render(<Submit update = {this.update} />,
+			document.getElementById("submission"));
+		console.log(this.state.recipes);
 		return (
 			<div className = "panel-group">
 						<RecipeList list = {this.state.recipes}/>
@@ -112,11 +110,4 @@ class Parent extends React.Component {
 
 }
 
-const generate = () => {
-	ReactDOM.render(<Parent recipes = {recipes}/>, document.getElementById("recipeWell"));
-}
-
-ReactDOM.render(<Submit />, document.getElementById("submission"));
-
-
-generate();
+ReactDOM.render(<Parent recipes = {recipes}/>, document.getElementById("recipeWell"));
