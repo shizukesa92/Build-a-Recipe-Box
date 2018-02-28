@@ -75,7 +75,11 @@ class Parent extends React.Component {
 				recipes: [...recipes, recipe]
 			}
 
-		)
+		);
+		console.log(recipe);
+		console.log(this.state.recipes);
+		generate();
+		this.close();
 	}
 	render() {
 
@@ -89,4 +93,8 @@ class Parent extends React.Component {
 
 }
 
-ReactDOM.render(<Parent />, document.getElementById("recipeWell"))
+const generate = () => {
+	ReactDOM.render(<Parent />, document.getElementById("recipeWell"));
+}
+
+generate();
