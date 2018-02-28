@@ -1,8 +1,28 @@
+var recipes = [{
+		name: "Pumpkin Pie",
+		ingredients: ["Pumpkin Puree", "Sweetened Condensed Milk", "Eggs", "Pumpkin Pie Spice", "Pie Crust"]
+	},
+	{
+		name: "Spaghetti",
+		ingredients: ["Noodles", "Tomato Sauce", "(Optional) Meatballs"]
+	}
+];
+
+const update = () => {
+	const recipe = {
+		name: document.getElementById("title").value,
+		ingredients: document.getElementById("ingredients").value.split(",")
+	};
+	recipes = [...recipes, recipe];
+
+}
+
+
 class Submit extends React.Component {
 	render() {
 
 		return (
-			<input type="submit" class="btn btn-info" value="Submit" />
+			<input type="submit" class="btn btn-info" value="Submit" onClick = {update} />
 		);
 	};
 
@@ -64,23 +84,11 @@ class Parent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recipes: [{
-					name: "Pumpkin Pie",
-					ingredients: ["Pumpkin Puree", "Sweetened Condensed Milk", "Eggs", "Pumpkin Pie Spice", "Pie Crust"]
-				},
-				{
-					name: "Spaghetti",
-					ingredients: ["Noodles", "Tomato Sauce", "(Optional) Meatballs"]
-				}
-			]
+			recipes: recipes
 		};
 	}
 
 	handleClick = () => {
-		const recipe = {
-			name: document.getElementById("title").value,
-			ingredients: document.getElementById("ingredients").value.split(",")
-		};
 
 		this.setState({
 				recipes: [...recipes, recipe]
@@ -105,7 +113,7 @@ class Parent extends React.Component {
 }
 
 const generate = () => {
-	ReactDOM.render(<Parent />, document.getElementById("recipeWell"));
+	ReactDOM.render(<Parent recipes = {recipes}/>, document.getElementById("recipeWell"));
 }
 
 ReactDOM.render(<Submit />, document.getElementById("submission"));
