@@ -8,6 +8,7 @@ var recipes = [{
 	}
 ];
 
+var editId;
 
 class Modal extends React.Component {
 
@@ -91,7 +92,8 @@ class Submit extends React.Component {
 
 		};
 		const editRecipe = () => {
-			this.props.update;
+			recipes[editId].ingredients = document.getElementById("ingredientsEdit").value.split(",");
+			this.props.update(recipes);
 		}
 
 		const updating = this.props.submitType == "newRecipe" ? createRecipe : editRecipe;
@@ -116,8 +118,9 @@ class Recipe extends React.Component {
 							<td>{ingredient}</td>
 						</tr>);
 		});
-		const editName = (event) => {
-			document.getElementById("editLabel").innerHTML = event.target.id;
+		const editName = () => {
+			document.getElementById("editLabel").innerHTML = name;
+			editId = id;
 		}
 		const deleteRecipe = () => {
 			recipes.splice(id, 1);
@@ -135,7 +138,7 @@ class Recipe extends React.Component {
 								{recipe}
 						</tbody>
 				</table>
-				<button type="button" className="btn btn-default" data-toggle="modal" data-target="#myModaltwo" onClick={editName} id = {name}>Edit</button>
+				<button type="button" className="btn btn-default" data-toggle="modal" data-target="#myModaltwo" onClick={editName}>Edit</button>
 
 		<button type="button" className="btn btn-danger" data-toggle="modal" onClick = {deleteRecipe}>Delete</button>
 
