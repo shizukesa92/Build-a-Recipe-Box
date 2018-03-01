@@ -9,6 +9,49 @@ var recipes = [{
 ];
 
 
+class Modal extends React.Component {
+
+
+	render() {
+
+		return (
+			<div>
+						<button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="create">Create Recipe</button>
+		<div id="myModal" className="modal fade" role="dialog">
+			<div className="modal-dialog">
+				<div className="modal-content">
+					<div className="modal-header">
+						<button type="button" className="close" data-dismiss="modal">&times;</button>
+						<h4 className="modal-title">Add a Recipe</h4>
+					</div>
+					<div className="modal-body">
+						<div className="form-group">
+							<label for="usr">Recipe:</label>
+							<input type="text" className="form-control" id="title"/>
+						</div>
+						<div className="form-group">
+							<label for="usr">Ingredients:</label>
+							<input type="textarea" className="form-control" placeholder="Enter ingredients separated by comma" id="ingredients"/>
+						</div>
+					</div>
+					<div className="modal-footer">
+							<Submit update = {this.props.update} />
+						<button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+
+		);
+
+
+	}
+
+
+
+}
+
 
 class Submit extends React.Component {
 	render() {
@@ -24,7 +67,7 @@ class Submit extends React.Component {
 
 		};
 		return (
-			<input type="submit" class="btn btn-info" value="Submit" onClick = {updating} />
+			<input type="submit" className="btn btn-info" value="Submit" onClick = {updating} />
 		);
 	};
 
@@ -32,6 +75,16 @@ class Submit extends React.Component {
 }
 
 class Recipe extends React.Component {
+	delete = (id) => {
+		this.props.update;
+	}
+
+	edit = (id) => {
+		recipes.id.name = this.name;
+		recipes.id.ingredients = ingredients;
+		this.props.update;
+	}
+
 	render() {
 		const name = this.props.name;
 		const id = this.props.index;
@@ -55,8 +108,8 @@ class Recipe extends React.Component {
 								{recipe}
 						</tbody>
 				</table>
-				<button type="button" className="btn btn-danger">Delete</button>
-				<button type="button" className="btn btn-default">Edit</button>
+				<button type="button" className="btn btn-danger" onClick = {this.delete}>Delete</button>
+				<button type="button" className="btn btn-default" onClick = {this.edit}>Edit</button>
 
 			</div>
 		</div>
@@ -70,7 +123,7 @@ class RecipeList extends React.Component {
 	render() {
 
 		const list = this.props.list.map((ingredients, index) => {
-				return (<Recipe name = {ingredients.name} ingredients = {ingredients.ingredients} index = {index} />);
+				return (<Recipe name = {ingredients.name} ingredients = {ingredients.ingredients} index = {index} update = {this.props.update}/>);
 			}
 
 		);
@@ -97,12 +150,11 @@ class Parent extends React.Component {
 	}
 
 	render() {
-		ReactDOM.render(<Submit update = {this.update} />,
-			document.getElementById("submission"));
-		console.log(this.state.recipes);
+		ReactDOM.render(<Modal update = {this.update} />,
+			document.getElementById("modal"));
 		return (
 			<div className = "panel-group">
-						<RecipeList list = {this.state.recipes}/>
+						<RecipeList list = {this.state.recipes} update = {this.update}/>
 				</div>
 		);
 
